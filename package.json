@@ -1,0 +1,26 @@
+{
+  "name": "synch-steps",
+  "version": "0.0.1",
+  "description": "Callback hell alternative! Synchronously execute steps.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shivanshu3/synch-steps.git"
+  },
+  "keywords": [
+    "callback",
+    "hell",
+    "synchronous",
+    "execution",
+    "steps"
+  ],
+  "author": "Shivanshu Goyal",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/shivanshu3/synch-steps/issues"
+  },
+  "homepage": "https://github.com/shivanshu3/synch-steps#readme"
+}
