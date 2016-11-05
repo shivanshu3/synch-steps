@@ -35,4 +35,8 @@ fooBarSteps.step(function(next) {
    // This step executes after the previous step is done executing
    next();
 });
+
+fooBarSteps.execute(function() {
+   console.log('All steps are now done executing.');
+});
 ```
