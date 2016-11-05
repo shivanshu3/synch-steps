@@ -3,10 +3,12 @@ Callback hell alternative! Synchronously execute steps.
 
 ## Usage
 ```javascript
-var synchSteps = require('synch-steps');
+var SynchSteps = require('synch-steps');
 var fs = require('fs');
 
-synchSteps.step(next, function() {
+var fooBarSteps = new SynchSteps();
+
+fooBarSteps.step(next, function() {
    var foo = 10;
    var bar = 20;
    fs.readFile('/foo', function(err, result) {
