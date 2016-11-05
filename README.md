@@ -8,7 +8,7 @@ var fs = require('fs');
 
 var fooBarSteps = new SynchSteps();
 
-fooBarSteps.step(next, function() {
+fooBarSteps.step(function(next) {
    var foo = 10;
    var bar = 20;
    fs.readFile('/foo', function(err, result) {
@@ -19,7 +19,7 @@ fooBarSteps.step(next, function() {
       }
       next();
    });
-}).step(next, function() {
+}).step(function(next) {
    // This step executes after the previous step is done executing
    var baz = 20;
    fs.readFile('/bar', function(err, result) {
@@ -30,7 +30,7 @@ fooBarSteps.step(next, function() {
       }
       next();
    });
-}).step(next, function() {
+}).step(function(next) {
    // This is the last step in this example:
    // This step executes after the previous step is done executing
    next();
