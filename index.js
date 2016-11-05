@@ -5,6 +5,7 @@ var SynchSteps = function() {
    // Instance variables:
    this._steps = [];
    this._nextCallbacks = [];
+   this._executionCompleteCallback = null;
 };
 
 /** PUBLIC METHODS **/
@@ -20,9 +21,12 @@ SynchSteps.prototype.step = function(task) {
 /**
  * Execute the chain of steps defined in this object.
  */
-SynchSteps.prototype.execute = function() {
+SynchSteps.prototype.execute = function(callback) {
+   this._executionCompleteCallback = callback;
+
    // If there are no steps, then we are done:
    if (this._steps.length == 0) {
+      this._executionCompleteCallback();
       return;
    }
 
@@ -53,6 +57,7 @@ SynchSteps.prototype.execute = function() {
 SynchSteps.prototype._nextCallback = function(stepIndex) {
    // Was this the last step?
    if (stepIndex == this._steps.length - 1) {
+      this._executionCompleteCallback();
       return;
    }
 
