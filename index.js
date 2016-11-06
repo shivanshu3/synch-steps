@@ -6,6 +6,7 @@ var SynchSteps = function() {
    this._steps = [];
    this._nextCallbacks = [];
    this._executionCompleteCallback = null;
+   this._executionStarted = false;
 };
 
 /** PUBLIC METHODS **/
@@ -14,6 +15,10 @@ var SynchSteps = function() {
  * Define a step to be executed.
  */
 SynchSteps.prototype.step = function(task) {
+   if (this._executionStarted) {
+      throw new Error("Cannot add a step after calling execute");
+   }
+
    this._steps.push(task);
    return this;
 };
@@ -22,7 +27,14 @@ SynchSteps.prototype.step = function(task) {
  * Execute the chain of steps defined in this object.
  */
 SynchSteps.prototype.execute = function(callback) {
-   this._executionCompleteCallback = callback;
+   if (this._executionStarted) {
+      throw new Error("Cannot call execute twice");
+   }
+
+   this._executionStarted = true;
+
+   this._executionCompleteCallback = ((callback == undefined) || (callback == null))
+      ? function(){} : callback;
 
    // If there are no steps, then we are done:
    if (this._steps.length == 0) {
