@@ -1,6 +1,6 @@
 {
   "name": "synch-steps",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Callback hell alternative! Synchronously execute steps.",
   "main": "index.js",
   "scripts": {
