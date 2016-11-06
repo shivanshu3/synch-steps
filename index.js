@@ -56,7 +56,9 @@ SynchSteps.prototype.execute = function(callback) {
 
    var firstStep = this._steps[0];
    var firstCallback = this._nextCallbacks[0];
-   firstStep(firstCallback);
+   firstStep(firstCallback, function() {
+      _this._stopCallback();
+   });
 };
 
 /** PRIVATE METHODS **/
@@ -67,6 +69,8 @@ SynchSteps.prototype.execute = function(callback) {
  * just finished execution. (Step numbering starts from 0).
  */
 SynchSteps.prototype._nextCallback = function(stepIndex) {
+   var _this = this;
+
    // Was this the last step?
    if (stepIndex == this._steps.length - 1) {
       this._executionCompleteCallback();
@@ -77,8 +81,18 @@ SynchSteps.prototype._nextCallback = function(stepIndex) {
    else {
       var nextStep = this._steps[stepIndex + 1];
       var nextCallback = this._nextCallbacks[stepIndex + 1];
-      nextStep(nextCallback);
+      nextStep(nextCallback, function() {
+         _this._stopCallback();
+      });
    }
 };
+
+/**
+ * This method is called after the stop() function is called
+ * in the user code.
+ */
+SynchSteps.prototype._stopCallback = function(stepIndex) {
+   this._executionCompleteCallback();
+}
 
 module.exports = SynchSteps;
