@@ -40,3 +40,30 @@ fooBarSteps.execute(function() {
    console.log('All steps are now done executing.');
 });
 ```
+
+You can choose to stop the execution of further statements by calling
+the stop() function as follows:
+
+```javascript
+var SynchSteps = require('synch-steps');
+var assert = require('assert');
+
+var testString = '';
+
+steps = new SynchSteps();
+
+steps.step(function(next) {
+   testString += 'x';
+   next();
+}).step(function(next, stop) {
+   testString += 'y';
+   stop();
+}).step(function(next) {
+   testString += 'z';
+   next();
+});
+
+steps.execute(function() {
+   assert.equal(testString, 'xy');
+});
+```
